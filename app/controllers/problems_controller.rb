@@ -6,7 +6,7 @@ class ProblemsController < ApplicationController
     @arrival_time = 0
     @last_time_service_ends = 0
 
-    @total = {inter_arrival_time: 0, service_time: 0, waiting_in_queue: 0, time_in_system: 0, system_idel_time: 0}
+    @total = {inter_arrival_time: 0, service_time: 0, waiting_in_queue: 0, time_in_system: 0, server_idel_time: 0, customers_who_wait: 0}
     @customers_count.times do |i|
       customer = {}
       customer[:number] = i + 1
@@ -25,12 +25,13 @@ class ProblemsController < ApplicationController
 
       customer[:waiting_in_queue] = customer[:time_service_begins] - @arrival_time
       @total[:waiting_in_queue] += customer[:waiting_in_queue]
+      @total[:customers_who_wait] += 1 if customer[:waiting_in_queue] > 0
 
       customer[:time_in_system] = customer[:time_service_ends] - customer[:arrival_time]
       @total[:time_in_system] += customer[:time_in_system]
 
-      customer[:system_idel_time] = customer[:time_service_begins] - @last_time_service_ends
-      @total[:system_idel_time] += customer[:system_idel_time]
+      customer[:server_idel_time] = customer[:time_service_begins] - @last_time_service_ends
+      @total[:server_idel_time] += customer[:server_idel_time]
 
       @customers << customer
 

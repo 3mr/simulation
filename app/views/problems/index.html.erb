@@ -45,38 +45,58 @@
                   <td><%= customer[:waiting_in_queue] %></td>
                   <td><%= customer[:time_service_ends] %></td>
                   <td><%= customer[:time_in_system] %></td>
-                  <td><%= customer[:system_idel_time] %></td>
+                  <td><%= customer[:server_idel_time] %></td>
                 </tr>
               <% end %>
 
-              <tr class="info">
-                <td colspan="8">Total interarrival time (min)</td>
-                <td colspan="1"><%= @total[:inter_arrival_time] %></td>
+              <tr>
+                <th>#</th>
+                <th>Interarrival<br/>time (min)</th>
+                <th>Arrival time</th>
+                <th>Service time<br /> (min)</th>
+                <th>Time service<br/>begins</th>
+                <th>Waiting time<br/>in queue<br />(min)</th>
+                <th>Time service<br/>ends</th>
+                <th>Time customer<br/>spends<br />in system</th>
+                <th>Idel time<br/>of server</th>
               </tr>
 
               <tr class="info">
-                <td colspan="8">Total service time (min)</td>
-                <td colspan="1"><%= @total[:service_time] %></td>
-              </tr>
-
-              <tr class="info">
-                <td colspan="8">Total waiting time in queue (min)</td>
-                <td colspan="1"><%= @total[:waiting_in_queue] %></td>
-              </tr>
-
-              <tr class="info">
-                <td colspan="8">Total time spent in system (min)</td>
-                <td colspan="1"><%= @total[:time_in_system] %></td>
-              </tr>
-
-              <tr class="info">
-                <td colspan="8">Total system idel time (min)</td>
-                <td colspan="1"><%= @total[:system_idel_time] %></td>
+                <td>Total</td>
+                <td><%= @total[:inter_arrival_time] %></td>
+                <td></td>
+                <td><%= @total[:service_time] %></td>
+                <td></td>
+                <td><%= @total[:waiting_in_queue] %></td>
+                <td></td>
+                <td><%= @total[:time_in_system] %></td>
+                <td><%= @total[:server_idel_time] %></td>
               </tr>
 
               <tr class="warning">
-                <td colspan="8">Average waiting time</td>
-                <td colspan="1"><%= @total[:waiting_in_queue] / @customers_count.to_f %></td>
+                <td>Average</td>
+                <td><%= (@total[:inter_arrival_time] / @customers_count.to_f).round(2) %></td>
+                <td></td>
+                <td><%= (@total[:service_time] / @customers_count.to_f).round(2) %></td>
+                <td></td>
+                <td><%= (@total[:waiting_in_queue] / @customers_count.to_f).round(2) %></td>
+                <td></td>
+                <td><%= (@total[:time_in_system] / @customers_count.to_f).round(2) %></td>
+                <td><%= (@total[:server_idel_time] / @customers_count.to_f).round(2) %></td>
+              </tr>
+
+              <tr class="success">
+                <td colspan="8">
+                  Wait probability = Total number of customers who wait / Total number of customers
+                </td>
+                <td colspan="1"><%= (@total[:customers_who_wait] / @customers_count.to_f).round(2) %></td>
+              </tr>
+
+              <tr class="success">
+                <td colspan="8">
+                  Idel server probability = Total idel time of server / Total run time of simulation
+                </td>
+                <td colspan="1"><%= (@total[:server_idel_time] / @last_time_service_ends.to_f).round(2) %></td>
               </tr>
 
             </tbody>

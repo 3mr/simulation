@@ -1,1 +1,86 @@
-asdsdsa
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-right">
+    <div class="col-xs-12 col-sm-12">
+      <div class="jumbotron">
+        <h3>Grocery Store Simulation</h3>
+        <p>For 100 customers</p>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-lg-12">
+          <table class="table table-hover">
+            <thead>
+              <th>Step</th>
+              <th>Activity</th>
+              <th>Clock</th>
+              <th>Activity</th>
+              <th>Clock</th>
+              <th>Output</th>
+              <th>Clock</th>
+              <th>Output</th>
+              <th>Output</th>
+            </thead>
+            <thead>
+              <th>#</th>
+              <th>Interarrival<br/>time (min)</th>
+              <th>Arrival time</th>
+              <th>Service time<br /> (min)</th>
+              <th>Time service<br/>begins</th>
+              <th>Waiting time<br/>in queue<br />(min)</th>
+              <th>Time service<br/>ends</th>
+              <th>Time customer<br/>spends<br />in system</th>
+              <th>Idel time<br/>of server</th>
+            </thead>
+            <tbody>
+              <% @customers.each do |customer| %>
+                <tr>
+                  <td><%= customer[:number] %></td>
+                  <td><%= customer[:inter_arrival_time] %></td>
+                  <td><%= customer[:arrival_time] %></td>
+                  <td><%= customer[:service_time] %></td>
+                  <td><%= customer[:time_service_begins] %></td>
+                  <td><%= customer[:waiting_in_queue] %></td>
+                  <td><%= customer[:time_service_ends] %></td>
+                  <td><%= customer[:time_in_system] %></td>
+                  <td><%= customer[:system_idel_time] %></td>
+                </tr>
+              <% end %>
+
+              <tr class="info">
+                <td colspan="8">Total interarrival time (min)</td>
+                <td colspan="1"><%= @total[:inter_arrival_time] %></td>
+              </tr>
+
+              <tr class="info">
+                <td colspan="8">Total service time (min)</td>
+                <td colspan="1"><%= @total[:service_time] %></td>
+              </tr>
+
+              <tr class="info">
+                <td colspan="8">Total waiting time in queue (min)</td>
+                <td colspan="1"><%= @total[:waiting_in_queue] %></td>
+              </tr>
+
+              <tr class="info">
+                <td colspan="8">Total time spent in system (min)</td>
+                <td colspan="1"><%= @total[:time_in_system] %></td>
+              </tr>
+
+              <tr class="info">
+                <td colspan="8">Total system idel time (min)</td>
+                <td colspan="1"><%= @total[:system_idel_time] %></td>
+              </tr>
+
+              <tr class="warning">
+                <td colspan="8">Average waiting time</td>
+                <td colspan="1"><%= @total[:waiting_in_queue] / @customers_count.to_f %></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
